@@ -26,8 +26,6 @@ namespace Setup
         public MainWindow()
         {
             InitializeComponent();
-            var c = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.3));
-            this.BeginAnimation(OpacityProperty, c);
         }
 
         private void Path_MouseDown(object sender, MouseButtonEventArgs e)
@@ -52,8 +50,6 @@ namespace Setup
 
         private async void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (cb.IsChecked == true)
-            {
                 (Resources["START"] as Storyboard).Begin();
                 await Task.Delay(1000);
                 ZipHandler handler = ZipHandler.GetInstance();
@@ -63,16 +59,18 @@ namespace Setup
                 ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\小萌\", "卸载小萌", path.Text + @"\uninstall.exe", null, path.Text + @"\uninstall.exe");
                 Process.Start(path.Text + @"\Lemon App.exe");
                 Environment.Exit(0);
-            }
+        }
+        bool a = false;
+        private void border_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            if (!a)
+            { (Resources["OnMouseDown1"] as Storyboard).Begin(); a = true; }
+            else { (Resources["OnMouseDown2"] as Storyboard).Begin(); a = false; }
         }
 
-        private void grid_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void grid1_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            grid.Clip = new RectangleGeometry(new Rect(0, 0, grid.Width, grid.Height)) {RadiusX=5,RadiusY=5};
-        }
-        private void TextBlock_MouseDown_1(object sender, MouseButtonEventArgs e)
-        {
-            Process.Start("https://baike.baidu.com/item/GPL/2357903");
+            grid.Clip = new RectangleGeometry(new Rect(0, 0, grid.ActualWidth, grid.ActualHeight), 210, 210);
         }
     }
 }

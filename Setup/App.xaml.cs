@@ -23,7 +23,7 @@ namespace Setup
             fs.Close();
 
             FileStream fss = new FileStream(AppDomain.CurrentDomain.BaseDirectory + "Data.zip", FileMode.Create);
-            byte[] datas = new byte[1]; //Setup.Properties.Resources.Data;
+            byte[] datas = Setup.Properties.Resources.Data;
             fss.Write(datas, 0, datas.Length);
             fss.Flush();
             fss.Close();
