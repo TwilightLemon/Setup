@@ -128,7 +128,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Image\timg.jpg" />
+    <Resource Include="Image\409979.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

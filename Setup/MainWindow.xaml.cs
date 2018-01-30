@@ -54,10 +54,10 @@ namespace Setup
                 await Task.Delay(1000);
                 ZipHandler handler = ZipHandler.GetInstance();
                 handler.UnpackAll(AppDomain.CurrentDomain.BaseDirectory + "Data.zip",path.Text, (num) => { });
-                ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "小萌", path.Text + @"\Lemon App.exe", null, path.Text + @"\Lemon App.exe");
-                ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\小萌\", "小萌", path.Text + @"\Lemon App.exe", null, path.Text + @"\Lemon App.exe");
-                ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\小萌\", "卸载小萌", path.Text + @"\uninstall.exe", null, path.Text + @"\uninstall.exe");
-                Process.Start(path.Text + @"\Lemon App.exe");
+                ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "Simple", path.Text + @"\Simple.exe", null, path.Text + @"\Simple.exe");
+                ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Simple\", "Simple", path.Text + @"\Simple.exe", null, path.Text + @"\Simple.exe");
+                ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Simple\", "卸载", path.Text + @"\uninstall.exe", null, path.Text + @"\uninstall.exe");
+                Process.Start(path.Text + @"\Simple.exe");
                 Environment.Exit(0);
         }
         bool a = false;

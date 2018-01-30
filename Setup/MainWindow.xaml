@@ -267,7 +267,7 @@
     <Grid x:Name="grid1" Width="250" Height="250" SizeChanged="grid1_SizeChanged">
         <Grid x:Name="grid" Margin="20">
             <Grid.Background>
-                <ImageBrush ImageSource="Image/timg.jpg"/>
+                <ImageBrush ImageSource="Image/409979.jpg"/>
             </Grid.Background>
             <Grid.Clip>
                 <RectangleGeometry RadiusX="210" RadiusY="210" Rect="0,0,210,210"/>
@@ -283,8 +283,7 @@
                 </Border.RenderTransform>
                 <TextBlock Foreground="White" Text="极速安装" TextAlignment="Center" FontSize="18" Height="25" Margin="0,5,0,7"/>
             </Border>
-            <TextBox x:Name="path" Height="27" Margin="10,0,10,99" TextWrapping="Wrap" Text="C:\Program Files\Lemon App" VerticalAlignment="Bottom" Foreground="White" Background="{x:Null}" Style="{DynamicResource TextBoxStyle}" BorderBrush="White" Opacity="0" Visibility="Collapsed"/>
-            <TextBlock x:Name="textBlock" Height="21" Margin="10,76,10,0" TextWrapping="Wrap" Text="小萌 V4" VerticalAlignment="Top" Foreground="#FFF3F3F3" FontSize="14" TextAlignment="Center" RenderTransformOrigin="0.5,0.5" Opacity="0">
+            <TextBlock x:Name="textBlock" Height="21" Margin="10,76,10,0" TextWrapping="Wrap" Text="Simple" VerticalAlignment="Top" Foreground="#FFF3F3F3" FontSize="14" TextAlignment="Center" RenderTransformOrigin="0.5,0.5" Opacity="0">
                 <TextBlock.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -333,6 +332,7 @@
 					 M31.999,25.057c-4.179,0-7.576,3.31-7.576,7.378c0,4.071,3.396,7.384,7.576,7.384c4.172,0,7.566-3.313,7.566-7.384
 					C39.564,28.367,36.171,25.057,31.999,25.057z" Stretch="Uniform" Fill="White"/>
             </Border>
+            <TextBox x:Name="path" Height="27" Margin="10,0,10,99" TextWrapping="Wrap" Text="C:\Program Files\Lemon App" VerticalAlignment="Bottom" Foreground="White" Background="{x:Null}" Style="{DynamicResource TextBoxStyle}" BorderBrush="White" Opacity="0" Visibility="Collapsed"/>
         </Grid>
         <Border x:Name="border2" Height="15" VerticalAlignment="Top" HorizontalAlignment="Right" Width="15" Margin="35" Background="#CCFFFFFF" CornerRadius="20" MouseDown="TextBlock_MouseDown">
             <Path Data="M507.331,411.33c-0.002-0.002-0.004-0.004-0.006-0.005L352.003,256l155.322-155.325c0.002-0.002,0.004-0.003,0.006-0.005
