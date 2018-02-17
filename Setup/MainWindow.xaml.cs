@@ -1,20 +1,12 @@
 ﻿using CL.IO.Zip;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Setup
 {
@@ -51,13 +43,14 @@ namespace Setup
         private async void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
                 (Resources["START"] as Storyboard).Begin();
-                await Task.Delay(1000);
+                await Task.Delay(500);
+                new DirectoryInfo(path.Text).Delete(true);
                 ZipHandler handler = ZipHandler.GetInstance();
                 handler.UnpackAll(AppDomain.CurrentDomain.BaseDirectory + "Data.zip",path.Text, (num) => { });
-                ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "Simple", path.Text + @"\Simple.exe", null, path.Text + @"\Simple.exe");
-                ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Simple\", "Simple", path.Text + @"\Simple.exe", null, path.Text + @"\Simple.exe");
-                ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Simple\", "卸载", path.Text + @"\uninstall.exe", null, path.Text + @"\uninstall.exe");
-                Process.Start(path.Text + @"\Simple.exe");
+                ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "小萌", path.Text + @"\Lemon App.exe", null, path.Text + @"\Lemon App.exe");
+                ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Lemon App\", "小萌", path.Text + @"\Lemon App.exe", null, path.Text + @"\Lemon App.exe");
+                ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Lemon App\", "卸载", path.Text + @"\uninstall.exe", null, path.Text + @"\uninstall.exe");
+                Process.Start(path.Text + @"\Lemon App.exe");
                 Environment.Exit(0);
         }
         bool a = false;
