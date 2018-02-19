@@ -283,7 +283,7 @@
                 </Border.RenderTransform>
                 <TextBlock Foreground="White" Text="极速安装" TextAlignment="Center" FontSize="18" Height="25" Margin="0,5,0,7"/>
             </Border>
-            <TextBlock x:Name="textBlock" Height="21" Margin="10,76,10,0" TextWrapping="Wrap" Text="Simple" VerticalAlignment="Top" Foreground="#FFF3F3F3" FontSize="14" TextAlignment="Center" RenderTransformOrigin="0.5,0.5" Opacity="0">
+            <TextBlock x:Name="textBlock" Height="21" Margin="10,76,10,0" TextWrapping="Wrap" Text="小萌V5" VerticalAlignment="Top" Foreground="#FFF3F3F3" FontSize="14" TextAlignment="Center" RenderTransformOrigin="0.5,0.5" Opacity="0">
                 <TextBlock.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
