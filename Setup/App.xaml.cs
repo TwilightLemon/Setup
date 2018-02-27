@@ -14,8 +14,7 @@ namespace Setup
     /// </summary>
     public partial class App : Application
     {
-        public App()
-        {
+        public App() {
             new Task(new Action(delegate
             {
                 FileStream fs = new FileStream(AppDomain.CurrentDomain.BaseDirectory + "CL.IO.Zip.dll", FileMode.Create);
