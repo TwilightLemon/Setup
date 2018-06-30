@@ -46,8 +46,8 @@ namespace Setup
                 Directory.CreateDirectory(xt);
             ZipHandler handler = ZipHandler.GetInstance();
             handler.UnpackAll(AppDomain.CurrentDomain.BaseDirectory+"Data.zip", xt, (num) => { Dispatcher.Invoke(() => { pro.Value = num; }); });
-            if(istb)ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "小萌", xt + @"\Lemon App.exe", null, xt + @"\Lemon App.exe");
-            ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Lemon App\", "小萌", xt + @"\Lemon App.exe", null, xt + @"\Lemon App.exe");
+            if(istb)ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "小萌", xt + @"\bin.exe", null, xt + @"\bin.exe");
+            ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Lemon App\", "小萌", xt + @"\bin.exe", null, xt + @"\bin.exe");
             ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Lemon App\", "卸载", xt + @"\uninstall.exe", null, xt + @"\uninstall.exe");
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
