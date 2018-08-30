@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Setup"
         mc:Ignorable="d"
-        Title="小萌V5 安装程序" Height="380" Width="520" Background="{x:Null}" AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterScreen">
+        Title="小萌音乐 安装程序" Height="380" Width="520" Background="{x:Null}" AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -271,7 +271,7 @@
             <Grid.Background>
                 <ImageBrush ImageSource="365651.jpg" Stretch="UniformToFill"/>
             </Grid.Background>
-            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="小萌V5 安装程序" VerticalAlignment="Top" Foreground="WhiteSmoke"/>
+            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="小萌音乐 安装程序" VerticalAlignment="Top" Foreground="WhiteSmoke"/>
             <Border x:Name="border1" Width="100" Height="100" Margin="0,0,0,50">
                 <Border.Background>
                     <VisualBrush>

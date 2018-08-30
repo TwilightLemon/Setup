@@ -17,6 +17,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace Setup
 {
@@ -46,9 +47,19 @@ namespace Setup
                 Directory.CreateDirectory(xt);
             ZipHandler handler = ZipHandler.GetInstance();
             handler.UnpackAll(AppDomain.CurrentDomain.BaseDirectory+"Data.zip", xt, (num) => { Dispatcher.Invoke(() => { pro.Value = num; }); });
-            if(istb)ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "小萌", xt + @"\bin.exe", null, xt + @"\bin.exe");
-            ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Lemon App\", "小萌", xt + @"\bin.exe", null, xt + @"\bin.exe");
+            if(istb)ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "小萌音乐", xt + @"\Lemon App.exe", null, xt + @"\Lemon App.exe");
+            ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Lemon App\", "小萌音乐", xt + @"\Lemon App.exe", null, xt + @"\Lemon App.exe");
             ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Lemon App\", "卸载", xt + @"\uninstall.exe", null, xt + @"\uninstall.exe");
+            RegistryKey hklm = Registry.LocalMachine;
+            RegistryKey hkSoftWare = hklm.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\LemonApp");
+            hkSoftWare.SetValue("DisplayIcon", xt + @"\Lemon App.exe", RegistryValueKind.String);
+            hkSoftWare.SetValue("DisplayName", "小萌音乐", RegistryValueKind.String);
+            hkSoftWare.SetValue("DisplayVersion", "1.0.2.2", RegistryValueKind.String);
+            hkSoftWare.SetValue("InstallLocation", xt, RegistryValueKind.String);
+            hkSoftWare.SetValue("UninstallString", xt + @"\uninstall.exe", RegistryValueKind.String);
+            hkSoftWare.SetValue("Publisher", "Twilight./Lemon", RegistryValueKind.String);
+            hklm.Close();
+            hkSoftWare.Close();
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -65,7 +76,7 @@ namespace Setup
 
         private void border_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
-            Process.Start(path.Text+"\\bin.exe");
+            Process.Start(path.Text+"\\Lemon App.exe");
             (Resources["OnMouseDown2"] as Storyboard).Begin();
         }
     }
