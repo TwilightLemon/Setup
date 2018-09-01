@@ -29,6 +29,12 @@ namespace Setup
         public MainWindow()
         {
             InitializeComponent();
+            Process[] processList = Process.GetProcesses();
+            foreach (Process process in processList)
+            {
+                if (process.ProcessName == "Lemon App")
+                    process.Kill();
+            }
             this.MouseLeftButtonDown += delegate (object sender, MouseButtonEventArgs e) {
                 if (e.LeftButton == MouseButtonState.Pressed)
                     this.DragMove();
