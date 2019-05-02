@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -14,21 +15,21 @@ namespace Setup
     /// </summary>
     public partial class App : Application
     {
-        public App() {
-            new Task(new Action(delegate
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
             {
-                FileStream fs = new FileStream(AppDomain.CurrentDomain.BaseDirectory + "CL.IO.Zip.dll", FileMode.Create);
-                byte[] data = Setup.Properties.Resources.CL_IO_Zip;
-                fs.Write(data, 0, data.Length);
-                fs.Flush();
-                fs.Close();
-
-                FileStream fss = new FileStream(AppDomain.CurrentDomain.BaseDirectory + "Data.zip", FileMode.Create);
-                byte[] datas = Setup.Properties.Resources.Data;
-                fss.Write(datas, 0, datas.Length);
-                fss.Flush();
-                fss.Close();
-            })).Start();
+                String projectName = Assembly.GetExecutingAssembly().GetName().Name.ToString();
+                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(projectName + ".CL.IO.Zip.dll"))
+                {
+                    Byte[] b = new Byte[stream.Length];
+                    stream.Read(b, 0, b.Length);
+                    return Assembly.Load(b);
+                }
+            };
+            MainWindow m = new MainWindow();
+            m.Show();
         }
     }
 }

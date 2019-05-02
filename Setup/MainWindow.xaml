@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Setup"
         mc:Ignorable="d"
-        Title="小萌音乐 安装程序" Height="380" Width="520" Background="{x:Null}" AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterScreen">
+        Title="小萌音乐 安装程序" Height="380" Width="520" Background="{x:Null}" AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -241,6 +241,34 @@
                 <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0,0,0,50"/>
             </ThicknessAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Key="Color" RepeatBehavior="Forever">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="grid1">
+                <EasingColorKeyFrame KeyTime="0:0:2" Value="#FFDD94FF"/>
+                <EasingColorKeyFrame KeyTime="0:0:4" Value="#FFC282FF"/>
+                <EasingColorKeyFrame KeyTime="0:0:6" Value="#FFFF9090"/>
+                <EasingColorKeyFrame KeyTime="0:0:8" Value="#FFE6FF90"/>
+                <EasingColorKeyFrame KeyTime="0:0:10" Value="#FF33B9AD"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="grid1">
+                <EasingColorKeyFrame KeyTime="0:0:2" Value="#FF00CCA7"/>
+                <EasingColorKeyFrame KeyTime="0:0:4" Value="#FF4578B2"/>
+                <EasingColorKeyFrame KeyTime="0:0:6" Value="#FF5C89BD"/>
+                <EasingColorKeyFrame KeyTime="0:0:8" Value="#FF1CDCA8"/>
+                <EasingColorKeyFrame KeyTime="0:0:10" Value="#FF007ACC"/>
+            </ColorAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Offset)" Storyboard.TargetName="grid1">
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Offset)" Storyboard.TargetName="grid1">
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(Brush.RelativeTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="grid1">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:10" Value="720"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="UIElement.MouseDown" SourceName="grid">
@@ -248,6 +276,7 @@
         </EventTrigger>
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
             <BeginStoryboard x:Name="OnLoaded1_BeginStoryboard" Storyboard="{StaticResource OnLoaded1}"/>
+            <BeginStoryboard Storyboard="{StaticResource Color}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="UIElement.MouseDown" SourceName="closeBtn">
             <BeginStoryboard x:Name="OnMouseDown2_BeginStoryboard" Storyboard="{StaticResource OnMouseDown2}"/>
@@ -267,9 +296,20 @@
                 </RectangleGeometry.Rect>
             </RectangleGeometry>
         </Grid.Clip>
-        <Grid Margin="0,0,0,50">
+        <Grid x:Name="grid1" Margin="0,0,0,50">
             <Grid.Background>
-                <ImageBrush ImageSource="365651.jpg" Stretch="UniformToFill"/>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                            <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF33B9AD" Offset="0"/>
+                    <GradientStop Color="#FF007ACC" Offset="1"/>
+                </LinearGradientBrush>
             </Grid.Background>
             <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="小萌音乐 安装程序" VerticalAlignment="Top" Foreground="WhiteSmoke"/>
             <Border x:Name="border1" Width="100" Height="100" Margin="0,0,0,50">

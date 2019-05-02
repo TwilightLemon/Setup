@@ -52,7 +52,12 @@ namespace Setup
             if (!Directory.Exists(xt))
                 Directory.CreateDirectory(xt);
             ZipHandler handler = ZipHandler.GetInstance();
-            handler.UnpackAll(AppDomain.CurrentDomain.BaseDirectory+"Data.zip", xt, (num) => { Dispatcher.Invoke(() => { pro.Value = num; }); });
+            FileStream fss = new FileStream(xt + "\\Data.zip", FileMode.Create);
+            byte[] datas = Properties.Resources.Data;
+            fss.Write(datas, 0, datas.Length);
+            fss.Flush();
+            fss.Close();
+            handler.UnpackAll(xt+"Data.zip", xt, (num) => { Dispatcher.Invoke(() => { pro.Value = num; }); });
             if(istb)ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "小萌音乐", xt + @"\Lemon App.exe", null, xt + @"\Lemon App.exe");
             ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Lemon App\", "小萌音乐", xt + @"\Lemon App.exe", null, xt + @"\Lemon App.exe");
             ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Lemon App\", "卸载", xt + @"\uninstall.exe", null, xt + @"\uninstall.exe");
@@ -60,7 +65,7 @@ namespace Setup
             RegistryKey hkSoftWare = hklm.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\LemonApp");
             hkSoftWare.SetValue("DisplayIcon", xt + @"\Lemon App.exe", RegistryValueKind.String);
             hkSoftWare.SetValue("DisplayName", "小萌音乐", RegistryValueKind.String);
-            hkSoftWare.SetValue("DisplayVersion", "1.0.2.2", RegistryValueKind.String);
+            hkSoftWare.SetValue("DisplayVersion", "1.0.4.1", RegistryValueKind.String);
             hkSoftWare.SetValue("InstallLocation", xt, RegistryValueKind.String);
             hkSoftWare.SetValue("UninstallString", xt + @"\uninstall.exe", RegistryValueKind.String);
             hkSoftWare.SetValue("Publisher", "Twilight./Lemon", RegistryValueKind.String);
