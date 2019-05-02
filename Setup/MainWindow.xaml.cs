@@ -57,7 +57,7 @@ namespace Setup
             fss.Write(datas, 0, datas.Length);
             fss.Flush();
             fss.Close();
-            handler.UnpackAll(xt+"Data.zip", xt, (num) => { Dispatcher.Invoke(() => { pro.Value = num; }); });
+            handler.UnpackAll(xt+"\\Data.zip", xt, (num) => { Dispatcher.Invoke(() => { pro.Value = num; }); });
             if(istb)ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "小萌音乐", xt + @"\Lemon App.exe", null, xt + @"\Lemon App.exe");
             ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Lemon App\", "小萌音乐", xt + @"\Lemon App.exe", null, xt + @"\Lemon App.exe");
             ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Lemon App\", "卸载", xt + @"\uninstall.exe", null, xt + @"\uninstall.exe");
@@ -87,7 +87,8 @@ namespace Setup
 
         private void border_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
-            Process.Start(path.Text+"\\Lemon App.exe");
+            var ps = path.Text + "\\Lemon App.exe";
+            Process.Start(ps);
             (Resources["OnMouseDown2"] as Storyboard).Begin();
         }
     }

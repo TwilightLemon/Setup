@@ -113,6 +113,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Data.zip" />
+    <None Include="Resources\Data.zip" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
