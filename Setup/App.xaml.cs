@@ -28,8 +28,16 @@ namespace Setup
                     return Assembly.Load(b);
                 }
             };
-            MainWindow m = new MainWindow();
-            m.Show();
+            var osVersion = Environment.OSVersion.Version;
+            var windows10_1903 = new Version(10, 0, 17763);
+            if (osVersion >= windows10_1903){
+                BlurWindow m = new BlurWindow();
+                m.Show();
+            }
+            else{
+                MainWindow m = new MainWindow();
+                m.Show();
+            }
         }
     }
 }

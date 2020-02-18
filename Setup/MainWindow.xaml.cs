@@ -1,22 +1,11 @@
 ﻿using CL.IO.Zip;
 using System;
 using System.Diagnostics;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Win32;
 
 namespace Setup
@@ -32,7 +21,7 @@ namespace Setup
             Process[] processList = Process.GetProcesses();
             foreach (Process process in processList)
             {
-                if (process.ProcessName == "Lemon App")
+                if (process.ProcessName == "LemonApp")
                     process.Kill();
             }
             this.MouseLeftButtonDown += delegate (object sender, MouseButtonEventArgs e) {
@@ -58,14 +47,14 @@ namespace Setup
             fss.Flush();
             fss.Close();
             handler.UnpackAll(xt+"\\Data.zip", xt, (num) => { Dispatcher.Invoke(() => { pro.Value = num; }); });
-            if(istb)ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "小萌音乐", xt + @"\Lemon App.exe", null, xt + @"\Lemon App.exe");
-            ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Lemon App\", "小萌音乐", xt + @"\Lemon App.exe", null, xt + @"\Lemon App.exe");
+            if(istb)ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "Lemon App", xt + @"\LemonApp.exe", null, xt + @"\LemonApp.exe");
+            ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Lemon App\", "Lemon App", xt + @"\LemonApp.exe", null, xt + @"\LemonApp.exe");
             ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Lemon App\", "卸载", xt + @"\uninstall.exe", null, xt + @"\uninstall.exe");
             RegistryKey hklm = Registry.LocalMachine;
             RegistryKey hkSoftWare = hklm.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\LemonApp");
-            hkSoftWare.SetValue("DisplayIcon", xt + @"\Lemon App.exe", RegistryValueKind.String);
-            hkSoftWare.SetValue("DisplayName", "小萌音乐", RegistryValueKind.String);
-            hkSoftWare.SetValue("DisplayVersion", "1.0.4.1", RegistryValueKind.String);
+            hkSoftWare.SetValue("DisplayIcon", xt + @"\LemonApp.exe", RegistryValueKind.String);
+            hkSoftWare.SetValue("DisplayName", "Lemon App", RegistryValueKind.String);
+            hkSoftWare.SetValue("DisplayVersion", "1.1.3.2", RegistryValueKind.String);
             hkSoftWare.SetValue("InstallLocation", xt, RegistryValueKind.String);
             hkSoftWare.SetValue("UninstallString", xt + @"\uninstall.exe", RegistryValueKind.String);
             hkSoftWare.SetValue("Publisher", "Twilight./Lemon", RegistryValueKind.String);
@@ -87,9 +76,62 @@ namespace Setup
 
         private void border_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
-            var ps = path.Text + "\\Lemon App.exe";
+            var ps = path.Text + "\\LemonApp.exe";
             Process.Start(ps);
             (Resources["OnMouseDown2"] as Storyboard).Begin();
+        }
+
+        private async void window_Loaded(object sender, RoutedEventArgs e)
+        {
+            string str = "dotnet --version";
+
+            Process p = new Process();
+            p.StartInfo.FileName = "cmd.exe";
+            p.StartInfo.UseShellExecute = false;    //是否使用操作系统shell启动
+            p.StartInfo.RedirectStandardInput = true;//接受来自调用程序的输入信息
+            p.StartInfo.RedirectStandardOutput = true;//由调用程序获取输出信息
+            p.StartInfo.RedirectStandardError = true;//重定向标准错误输出
+            p.StartInfo.CreateNoWindow = true;//不显示程序窗口
+            p.Start();//启动程序
+            await p.StandardInput.WriteLineAsync(str + "&exit");
+            p.StandardInput.AutoFlush = true;
+            string output =await p.StandardOutput.ReadToEndAsync();
+            p.WaitForExit();
+            p.Close();
+            string stre = XtoYGetTo(output+"}", "&exit", "}", 0);
+            Version v = new Version(3, 1, 101);
+            try
+            {
+                Version s = new Version(stre);
+                if (s < v){
+                    if (MessageBox.Show("Lemon App 需要安装.Net Core框架！", "Lemon App安装程序", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
+                        Process.Start("https://dotnet.microsoft.com/download/dotnet-core/current/runtime");
+                }
+            }
+            catch {
+                if (MessageBox.Show("Lemon App 需要安装.Net Core框架！", "Lemon App安装程序", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
+                    Process.Start("https://dotnet.microsoft.com/download/dotnet-core/current/runtime");
+            }
+        }
+        public static string XtoYGetTo(string all, string r, string l, int t)
+        {
+
+            int A = all.IndexOf(r, t);
+            int B = all.IndexOf(l, A + 1);
+            if (A < 0 || B < 0)
+            {
+                return null;
+            }
+            else
+            {
+                A = A + r.Length;
+                B = B - A;
+                if (A < 0 || B < 0)
+                {
+                    return null;
+                }
+                return all.Substring(A, B);
+            }
         }
     }
 }
