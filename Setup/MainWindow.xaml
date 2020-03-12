@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Setup"
         mc:Ignorable="d"
-        Title="Lemon App 安装程序" Height="380" Width="520" Background="{x:Null}" AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="window_Loaded">
+        Title="Lemon App 安装程序" Height="350" Width="350" Background="{x:Null}" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Loaded="window_Loaded" BorderThickness="20" WindowStyle="None">
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="-1" />
+    </WindowChrome.WindowChrome>
     <Window.Resources>
+        <Storyboard x:Key="Color" RepeatBehavior="Forever">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="PageGround">
+                <EasingColorKeyFrame KeyTime="0:0:2" Value="#FFDD94FF"/>
+                <EasingColorKeyFrame KeyTime="0:0:4" Value="#FFC282FF"/>
+                <EasingColorKeyFrame KeyTime="0:0:6" Value="#FFFF9090"/>
+                <EasingColorKeyFrame KeyTime="0:0:8" Value="#FFE6FF90"/>
+                <EasingColorKeyFrame KeyTime="0:0:10" Value="#FF33B9AD"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="PageGround">
+                <EasingColorKeyFrame KeyTime="0:0:2" Value="#FF00CCA7"/>
+                <EasingColorKeyFrame KeyTime="0:0:4" Value="#FF4578B2"/>
+                <EasingColorKeyFrame KeyTime="0:0:6" Value="#FF5C89BD"/>
+                <EasingColorKeyFrame KeyTime="0:0:8" Value="#FF1CDCA8"/>
+                <EasingColorKeyFrame KeyTime="0:0:10" Value="#FF007ACC"/>
+            </ColorAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Offset)" Storyboard.TargetName="PageGround">
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Offset)" Storyboard.TargetName="PageGround">
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(Brush.RelativeTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="PageGround">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:10" Value="720"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -51,13 +82,13 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Border x:Name="checkBoxBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="13" Height="13" CornerRadius="2">
+                            <Border x:Name="checkBoxBorder" BorderThickness="{TemplateBinding BorderThickness}" Width="13" Height="13" CornerRadius="2" Background="#33000000" BorderBrush="#FFF1F1F1" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Grid x:Name="markGrid">
-                                    <Path x:Name="optionMark" Data="F1 M 9.97498,1.22334L 4.6983,9.09834L 4.52164,9.09834L 0,5.19331L 1.27664,3.52165L 4.255,6.08833L 8.33331,1.52588e-005L 9.97498,1.22334 Z " Fill="{StaticResource OptionMark.Static.Glyph}" Margin="1" Opacity="0" Stretch="None"/>
-                                    <Rectangle x:Name="indeterminateMark" Fill="{StaticResource OptionMark.Static.Glyph}" Margin="2" Opacity="0"/>
+                                    <Path x:Name="optionMark" Data="F1 M 9.97498,1.22334L 4.6983,9.09834L 4.52164,9.09834L 0,5.19331L 1.27664,3.52165L 4.255,6.08833L 8.33331,1.52588e-005L 9.97498,1.22334 Z " Fill="#FFF1F1F1" Margin="1" Opacity="0" Stretch="Uniform"/>
+                                    <Rectangle x:Name="indeterminateMark" Fill="#FFF1F1F1" Margin="2" Opacity="0"/>
                                 </Grid>
                             </Border>
-                            <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Focusable="False" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="HasContent" Value="true">
@@ -112,19 +143,9 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="3">
+                        <Border x:Name="border" SnapsToDevicePixels="True" CornerRadius="15" Background="{TemplateBinding Background}" ClipToBounds="True">
                             <Grid>
-                                <Grid.Clip>
-                                    <RectangleGeometry RadiusX="3" RadiusY="3">
-                                        <RectangleGeometry.Rect>
-                                            <Rect Width="450" Height="22"/>
-                                        </RectangleGeometry.Rect>
-                                    </RectangleGeometry>
-                                </Grid.Clip>
-                                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="0,2,40,0"/>
-                                <Border HorizontalAlignment="Right" Width="40" Background="#FF96E25A" MouseDown="Border_MouseDown">
-                                    <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="选择" VerticalAlignment="Stretch" Foreground="White" TextAlignment="Center" Margin="0,2,0,0"/>
-                                </Border>
+                                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="5,4.88" VerticalAlignment="Center"/>
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -151,196 +172,215 @@
                 </MultiTrigger>
             </Style.Triggers>
         </Style>
-        <Storyboard x:Key="OnMouseDown1">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="checkBox">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="checkBox">
+        <Storyboard x:Key="NSToSelfPage">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="MainPage">
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="{x:Static Visibility.Collapsed}"/>
             </ObjectAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="grid">
-                <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="{x:Static Visibility.Collapsed}"/>
-            </ObjectAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="path">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MainPage">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ChoosePath">
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="{x:Static Visibility.Visible}"/>
             </ObjectAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="path">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ChoosePath">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-        <Storyboard x:Key="OnLoaded1">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="window">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+        <Storyboard x:Key="BackToMain">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ChoosePath">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ChoosePath">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="MainPage">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MainPage">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-        <Storyboard x:Key="OnMouseDown2">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="window">
+        <Storyboard x:Key="Start">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="SelfBtn">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="SelfBtn">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="OnMouseDown3">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="closeBtn">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="closeBtn">
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
             </ObjectAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="checkBox">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="path">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="checkBox">
-                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
-            </ObjectAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="grid">
-                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
-            </ObjectAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="path">
-                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
-            </ObjectAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="pro">
-                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
-            </ObjectAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="pro">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="border">
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
             </ObjectAnimationUsingKeyFrames>
-            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="border1">
-                <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="wrapPanel">
+                <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0,100,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="pro">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="pro">
+                <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0,150,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
             </ThicknessAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="OK">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="pro">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="pro">
-                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
-            </ObjectAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="border2">
-                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
-            </ObjectAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border2">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="pro">
+                <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0,170,0,0"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="wrapPanel">
+                <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0,80,0,0"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="closeBtn">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
             </DoubleAnimationUsingKeyFrames>
-            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="border1">
-                <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0,0,0,50"/>
-            </ThicknessAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="finishedText">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="finishedBtn">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="closeBtn">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
         </Storyboard>
-        <Storyboard x:Key="Color" RepeatBehavior="Forever">
-            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="grid1">
-                <EasingColorKeyFrame KeyTime="0:0:2" Value="#FFDD94FF"/>
-                <EasingColorKeyFrame KeyTime="0:0:4" Value="#FFC282FF"/>
-                <EasingColorKeyFrame KeyTime="0:0:6" Value="#FFFF9090"/>
-                <EasingColorKeyFrame KeyTime="0:0:8" Value="#FFE6FF90"/>
-                <EasingColorKeyFrame KeyTime="0:0:10" Value="#FF33B9AD"/>
-            </ColorAnimationUsingKeyFrames>
-            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="grid1">
-                <EasingColorKeyFrame KeyTime="0:0:2" Value="#FF00CCA7"/>
-                <EasingColorKeyFrame KeyTime="0:0:4" Value="#FF4578B2"/>
-                <EasingColorKeyFrame KeyTime="0:0:6" Value="#FF5C89BD"/>
-                <EasingColorKeyFrame KeyTime="0:0:8" Value="#FF1CDCA8"/>
-                <EasingColorKeyFrame KeyTime="0:0:10" Value="#FF007ACC"/>
-            </ColorAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Offset)" Storyboard.TargetName="grid1">
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0"/>
+        <Storyboard x:Key="Finish">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Offset)" Storyboard.TargetName="grid1">
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1"/>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="grid">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="PageGround">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="260">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn" Amplitude="0.5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn" Amplitude="0.5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(Brush.RelativeTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="grid1">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:10" Value="720"/>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="PageGround">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="260">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn" Amplitude="0.5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn" Amplitude="0.5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
     <Window.Triggers>
-        <EventTrigger RoutedEvent="UIElement.MouseDown" SourceName="grid">
-            <BeginStoryboard Storyboard="{StaticResource OnMouseDown1}"/>
+        <EventTrigger RoutedEvent="UIElement.MouseDown" SourceName="SelfBtn">
+            <BeginStoryboard x:Name="NSToSelfPage_BeginStoryboard" Storyboard="{StaticResource NSToSelfPage}"/>
         </EventTrigger>
-        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-            <BeginStoryboard x:Name="OnLoaded1_BeginStoryboard" Storyboard="{StaticResource OnLoaded1}"/>
-            <BeginStoryboard Storyboard="{StaticResource Color}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="UIElement.MouseDown" SourceName="closeBtn">
-            <BeginStoryboard x:Name="OnMouseDown2_BeginStoryboard" Storyboard="{StaticResource OnMouseDown2}"/>
+        <EventTrigger RoutedEvent="UIElement.MouseDown" SourceName="BackToMain">
+            <BeginStoryboard x:Name="BackToMain_BeginStoryboard" Storyboard="{StaticResource BackToMain}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="UIElement.MouseDown" SourceName="border">
-            <BeginStoryboard x:Name="OnMouseDown3_BeginStoryboard" Storyboard="{StaticResource OnMouseDown3}"/>
+            <BeginStoryboard x:Name="Start_BeginStoryboard" Storyboard="{StaticResource Start}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource Color}"/>
         </EventTrigger>
     </Window.Triggers>
     <Window.Effect>
-        <DropShadowEffect BlurRadius="20" Opacity="0.4" ShadowDepth="0"/>
+        <DropShadowEffect BlurRadius="20" ShadowDepth="0" Opacity="0.5"/>
     </Window.Effect>
-    <Grid Margin="20" Background="White">
-        <Grid.Clip>
-            <RectangleGeometry RadiusX="5" RadiusY="5" >
-                <RectangleGeometry.Rect>
-                    <Rect Width="480" Height="340"/>
-                </RectangleGeometry.Rect>
-            </RectangleGeometry>
-        </Grid.Clip>
-        <Grid x:Name="grid1" Margin="0,0,0,50">
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <LinearGradientBrush.RelativeTransform>
-                        <TransformGroup>
-                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
-                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
-                            <RotateTransform CenterY="0.5" CenterX="0.5"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </LinearGradientBrush.RelativeTransform>
-                    <GradientStop Color="#FF33B9AD" Offset="0"/>
-                    <GradientStop Color="#FF007ACC" Offset="1"/>
-                </LinearGradientBrush>
-            </Grid.Background>
-            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Lemon App 安装程序" VerticalAlignment="Top" Foreground="WhiteSmoke"/>
-            <Border x:Name="border1" Width="100" Height="100" Margin="0,0,0,50">
-                <Border.Background>
-                    <VisualBrush>
-                        <VisualBrush.Visual>
-                            <Grid>
-                                <Path Data="M759.936 63.104H263.168c-112.896 0-204.416 91.264-204.416 204.16v497.024c0 112.768 91.52 204.16 204.416 204.16h496.768c112.896 0 204.416-91.52 204.416-204.16V267.264c0.128-112.896-91.392-204.16-204.416-204.16z m-58.112 609.536h-0.512c-2.56 32.896-25.984 61.696-59.904 68.48l-28.544 5.76c-24.32 4.864-45.952-2.048-60.16-16.896-10.88-11.648-17.408-27.52-17.408-46.464 0-15.104 6.016-30.336 15.872-42.496 0.512-0.512 1.024-1.28 1.536-1.792 9.856-11.136 22.784-19.456 36.864-22.272l52.864-10.624c15.36-3.328 26.24-16.64 26.24-32.384V381.568c0-8.32-7.552-14.72-15.872-13.184l-223.104 45.696c-7.808 1.536-13.696 8.32-13.696 16.384v284.8h-0.256c2.304 37.12-22.784 71.04-60.16 78.592l-33.152 6.784c-39.936 8.064-72.832-18.688-72.832-59.648V736c0-30.336 24.32-59.904 53.888-65.92l53.888-10.88c14.848-3.072 25.472-16.128 25.472-31.36V310.272c0-12.416 8.832-23.296 20.992-25.472l268.928-54.784c15.104-3.072 29.056 8.576 29.056 24.064v418.56z" Fill="#FFFFFF" />
-                            </Grid>
-                        </VisualBrush.Visual>
-                    </VisualBrush>
-                </Border.Background>
-            </Border>
-            <Border x:Name="border" BorderBrush="#E5FFFFFF" BorderThickness="2" Height="50" VerticalAlignment="Bottom" CornerRadius="25" Width="150" Margin="0,0,0,40" Background="#00000000">
-                <TextBlock TextWrapping="Wrap" Text="极速安装" Foreground="#E5FFFFFF" FontSize="24" TextAlignment="Center" Margin="0,7,0,0"/>
-            </Border>
-            <Border x:Name="border2" BorderBrush="#E5FFFFFF" BorderThickness="2" Height="50" VerticalAlignment="Bottom" CornerRadius="25" Width="150" Margin="165,0,165,40" Background="#00000000" Visibility="Collapsed" Opacity="0" MouseDown="border_MouseDown_1">
-                <TextBlock TextWrapping="Wrap" Text="完成" Foreground="#E5FFFFFF" FontSize="24" TextAlignment="Center" Margin="0,7,0,0"/>
-            </Border>
-        </Grid>
-        <Grid VerticalAlignment="Bottom" Height="50">
-            <ProgressBar x:Name="pro" Margin="20" Background="White" Foreground="#FF7EF393" Visibility="Collapsed" ValueChanged="pro_ValueChanged"/>
-            <CheckBox x:Name="checkBox" Content="添加桌面快捷方式" HorizontalAlignment="Left" Height="15" Margin="20,0,0,0" Foreground="#FF535353" Style="{DynamicResource CheckBoxStyle}" BorderBrush="#FF919191" IsChecked="True"/>
-            <Grid x:Name="grid"  HorizontalAlignment="Right" Width="75" Height="15" Margin="0,0,10,0">
-                <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="自定义安装" Foreground="#FF636363"/>
-                <Path Width="13" HorizontalAlignment="Right" Data="M294.4,908.8L684.8,512 294.4,115.2C268.8,89.6 268.8,44.8 294.4,19.2 320,-6.4 364.8,-6.4 390.4,19.2L832,460.8C844.8,473.6 851.2,492.8 851.2,512 851.2,531.2 844.8,544 832,563.2L390.4,1004.8C364.8,1030.4 320,1030.4 294.4,1004.8 262.4,979.2 262.4,934.4 294.4,908.8z" Fill="#FF636363" Stretch="Uniform" Height="13"/>
+    <Border x:Name="PageGround" CornerRadius="500" Width="260" Height="260">
+        <Border.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush.RelativeTransform>
+                    <TransformGroup>
+                        <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                        <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                        <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#FF33B9AD" Offset="0"/>
+                <GradientStop Color="#FF007ACC" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid x:Name="grid">
+            <Grid x:Name="ChoosePath" Visibility="Collapsed" Opacity="0">
+                <TextBox x:Name="path" Text="C:\Program Files\Lemon App" Margin="55,10" Style="{DynamicResource TextBoxStyle}" Height="30" Background="#33000000" Foreground="#FFF7F7F7" IsReadOnly="True"/>
+                <Border x:Name="ChooseSetupPath" HorizontalAlignment="Right" Width="30" Background="#33000000" MouseDown="ChooseSetupPath_MouseDown" Height="30" VerticalAlignment="Center" CornerRadius="25" Margin="0,0,20,0">
+                    <Path Data="M832 874.6496H192a105.3696 105.3696 0 0 1-106.6496-103.68V253.0304A105.3696 105.3696 0 0 1 192 149.3504h196.2496c12.8 0.0512 24.832 5.8368 32.8704 15.7696l110.9504 135.68h298.6496A105.3696 105.3696 0 0 1 938.6496 404.48v366.4896a105.3696 105.3696 0 0 1-106.6496 103.68zM170.6496 587.1104v183.8592a19.6096 19.6096 0 0 0 21.3504 18.3808h640a19.6096 19.6096 0 0 0 21.3504-18.3808V404.48a19.6096 19.6096 0 0 0-21.3504-18.3296H512a42.6496 42.6496 0 0 1-32.8704-15.8208l-110.8992-135.68H192a19.6096 19.6096 0 0 0-21.3504 18.3808v334.08z" Stretch="Uniform" Fill="White" Width="15"/>
+                </Border>
+                <Border x:Name="BackToMain" HorizontalAlignment="Left" Width="30" Background="#33000000"  Height="30" VerticalAlignment="Center" CornerRadius="25" Margin="20,0,0,0">
+                    <Path HorizontalAlignment="Center" Data="M766.862,1021.724C756.622,1021.724,746.268,1018.084,738.418,1010.802L228.693,538.396C212.992,523.833,212.992,500.167,228.693,485.604L738.418,13.198C754.119,-1.365 779.605,-1.365 795.307,13.198 811.008,27.762 811.008,51.428 795.307,65.991L314.027,512 795.307,958.009C811.008,972.572 811.008,996.239 795.307,1010.802 787.456,1018.084 777.102,1021.724 766.862,1021.724z" Fill="#FFF7F7F7" Stretch="Uniform" VerticalAlignment="Center" Height="13" Margin="0" Stroke="#FFF1F1F1"/>
+                </Border>
+                <CheckBox x:Name="checkBox" Content="创建桌面快捷方式" VerticalAlignment="Top" HorizontalAlignment="Center" Style="{DynamicResource CheckBoxStyle}" Foreground="White" Margin="0,165,0,0" IsChecked="True"/>
             </Grid>
-            <TextBox x:Name="path" TextWrapping="Wrap" Text="C:\Program Files\Lemon App" Margin="15,14" Style="{DynamicResource TextBoxStyle}" Visibility="Collapsed"/>
+            <Grid x:Name="MainPage" Margin="0">
+                <Border x:Name="finishedBtn" Height="50" VerticalAlignment="Bottom" CornerRadius="25" Width="50" Margin="105,0,105,80" Background="#33000000" HorizontalAlignment="Center" Opacity="0" MouseDown="FinishBtn_MouseDown">
+                    <Path HorizontalAlignment="Center" Data="M935.030689,212.627678C906.370952,183.965895,859.906711,183.965895,831.250044,212.627678L381.527436,662.34824 191.258998,472.079802C162.599261,443.425182 116.13502,443.425182 87.475284,472.079802 58.818617,500.741585 58.818617,547.20378 87.475284,575.865563L329.635579,818.021765C358.292246,846.676385,404.75751,846.676385,433.416224,818.021765L935.029666,316.40423C963.689403,287.744493,963.689403,241.282299,935.030689,212.627678z" Fill="#FFF7F7F7" Margin="0" VerticalAlignment="Center" Stretch="Uniform" Height="13"/>
+                </Border>
+                <TextBlock x:Name="finishedText" TextWrapping="Wrap" Text="安装完成" Foreground="#FFF7F7F7" Margin="100,0,100,40" VerticalAlignment="Bottom" HorizontalAlignment="Center" Opacity="0"/>
+                <WrapPanel x:Name="wrapPanel" Margin="0,80,0,0" VerticalAlignment="Top" HorizontalAlignment="Center">
+                    <Border x:Name="icon" Width="25" Height="25" VerticalAlignment="Top">
+                        <Border.Background>
+                            <VisualBrush>
+                                <VisualBrush.Visual>
+                                    <Border Height="500" Width="500" BorderThickness="25,25,25,25" BorderBrush="#FF2E2E2E" CornerRadius="500,500,500,500">
+                                        <Border.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <LinearGradientBrush.RelativeTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                                        <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                        <RotateTransform Angle="90" CenterY="0.5" CenterX="0.5"/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </LinearGradientBrush.RelativeTransform>
+                                                <GradientStop Color="#FFFF5B15"/>
+                                                <GradientStop Color="#FFFFB012" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <Path Data="M844.743872 64.641229l-483.775168 80.814584c-1.567705 0.25071-3.031033 0.710175-4.453429 1.254573l-17.475 0c-11.915377 0-21.38403 9.532097-21.38403 21.280676l0 553.029462c-18.875906-10.912537-40.825824-17.140379-64.216557-17.140379-70.927399 0-128.433114 57.359382-128.433114 128.139425S182.512289 960.15695 253.439688 960.15695c70.926376 0 128.433114-57.359382 128.433114-128.139425 0-5.184069-0.314155-10.285251-0.899486-15.259542 0.585331-1.964748 0.899486-4.013407 0.899486-6.187933l0-449.764564 449.513854-79.267345 0 311.298955c-18.875906-10.870582-40.825824-17.142425-64.216557-17.142425-70.927399 0-128.433114 57.401338-128.433114 128.183428 0 70.738088 57.505715 128.139425 128.433114 128.139425 70.926376 0 128.432091-57.401338 128.432091-128.139425 0-5.184069-0.313132-10.285251-0.898463-15.301498 0.585331-1.966795 0.898463-4.015454 0.898463-6.187933l0-597.97307c0-10.45205-7.587815-19.190061-17.579377-20.946055-3.491521-2.173502-7.881504-3.051499-12.710486-2.257413l-11.370978 1.922792-1.170662 0C849.927941 63.135946 847.21004 63.679321 844.743872 64.641229z" Stretch="Uniform" Margin="84,100,116,100" Fill="#E5FFFFFF"/>
+                                    </Border>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Border.Background>
+                    </Border>
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Top" Foreground="WhiteSmoke" HorizontalAlignment="Center" FontSize="24" Margin="5,-2,5,0"><Run Text="Lemon App"/></TextBlock>
+                </WrapPanel>
+                <Border x:Name="border" Height="50" VerticalAlignment="Bottom" CornerRadius="25" Width="50" Margin="0,0,0,80" Background="#33000000" HorizontalAlignment="Center">
+                    <Path x:Name="path1" HorizontalAlignment="Center" Data="M294.4,908.8L684.8,512 294.4,115.2C268.8,89.6 268.8,44.8 294.4,19.2 320,-6.4 364.8,-6.4 390.4,19.2L832,460.8C844.8,473.6 851.2,492.8 851.2,512 851.2,531.2 844.8,544 832,563.2L390.4,1004.8C364.8,1030.4 320,1030.4 294.4,1004.8 262.4,979.2 262.4,934.4 294.4,908.8z" Fill="#FFF7F7F7" Stretch="Uniform" Height="15" Margin="2,0,0,0" VerticalAlignment="Center" Width="10"/>
+                </Border>
+                <TextBlock x:Name="SelfBtn" TextWrapping="Wrap" Text="自定义安装" Foreground="#FFF7F7F7" Margin="0,0,0,40" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="#00000000"/>
+                <ProgressBar x:Name="pro" Height="10" VerticalAlignment="Top" Margin="0,170,0,0" HorizontalAlignment="Center" Width="200" BorderThickness="0" Background="#7FE6E6E6" BorderBrush="{x:Null}" Foreground="#FF027DCB" Opacity="0" ValueChanged="pro_ValueChanged"/>
+            </Grid>
+            <Border x:Name="closeBtn" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" Background="#FF2B2B2B" Margin="0,20,20,0" MouseDown="closeBtn_MouseDown" CornerRadius="30">
+                <Path Data="M887.132284,833.893244L560.497039,507.257999 880.805182,186.943716C892.890428,174.856423 892.890428,155.273412 880.805182,143.187143 868.718912,131.101897 849.120552,131.101897 837.048609,143.187143L516.740466,463.500403 190.101127,136.860041C178.075233,124.834147 158.5659,124.834147 146.540005,136.860041 134.499784,148.885935 134.499784,168.408571 146.540005,180.435489L473.173204,507.068688 136.905578,843.339384C124.826472,855.425654 124.826472,875.007641 136.905578,887.09391 148.991848,899.181203 168.583045,899.181203 180.669314,887.09391L516.930801,550.827307 843.573209,877.469715C855.599103,889.495609 875.092063,889.495609 887.132284,877.469715 899.159202,865.442798 899.159202,845.919139 887.132284,833.893244z" Stretch="Uniform" Fill="#FFE8E8E8" Width="10" Height="10"/>
+            </Border>
         </Grid>
-        <Border x:Name="closeBtn" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="20" Background="#00000000" Margin="0,5,5,0">
-            <Path Data="M887.132284,833.893244L560.497039,507.257999 880.805182,186.943716C892.890428,174.856423 892.890428,155.273412 880.805182,143.187143 868.718912,131.101897 849.120552,131.101897 837.048609,143.187143L516.740466,463.500403 190.101127,136.860041C178.075233,124.834147 158.5659,124.834147 146.540005,136.860041 134.499784,148.885935 134.499784,168.408571 146.540005,180.435489L473.173204,507.068688 136.905578,843.339384C124.826472,855.425654 124.826472,875.007641 136.905578,887.09391 148.991848,899.181203 168.583045,899.181203 180.669314,887.09391L516.930801,550.827307 843.573209,877.469715C855.599103,889.495609 875.092063,889.495609 887.132284,877.469715 899.159202,865.442798 899.159202,845.919139 887.132284,833.893244z" Stretch="Uniform" Fill="#FFE8E8E8" Width="10" Height="10"/>
-        </Border>
-    </Grid>
+    </Border>
 </Window>

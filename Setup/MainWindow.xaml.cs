@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using Microsoft.Win32;
+using System.Windows.Media;
+using System.Threading.Tasks;
 
 namespace Setup
 {
@@ -28,8 +30,7 @@ namespace Setup
                 if (e.LeftButton == MouseButtonState.Pressed)
                     this.DragMove();
             };
-            (Resources["OnMouseDown2"] as Storyboard).Completed += delegate { Environment.Exit(0); };
-            (Resources["OnMouseDown3"] as Storyboard).Completed += delegate {
+            (Resources["Start"] as Storyboard).Completed += delegate {
                 Thread v = new Thread(Setup);
                 v.Start(new {path=path.Text,istb= checkBox.IsChecked});
             };
@@ -61,7 +62,7 @@ namespace Setup
             hklm.Close();
             hkSoftWare.Close();
         }
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ChooseSetupPath_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var fbd = new System.Windows.Forms.FolderBrowserDialog();
             if (fbd.ShowDialog() != System.Windows.Forms.DialogResult.Cancel)
@@ -74,17 +75,21 @@ namespace Setup
                 (Resources["OK"] as Storyboard).Begin();
         }
 
-        private void border_MouseDown_1(object sender, MouseButtonEventArgs e)
+        private void FinishBtn_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var ps = path.Text + "\\LemonApp.exe";
             Process.Start(ps);
-            (Resources["OnMouseDown2"] as Storyboard).Begin();
+            var close = Resources["Finish"] as Storyboard;
+            close.Completed += async delegate {
+                await Task.Delay(100);
+                Environment.Exit(0);
+            };
+            close.Begin();
         }
 
         private async void window_Loaded(object sender, RoutedEventArgs e)
         {
             string str = "dotnet --version";
-
             Process p = new Process();
             p.StartInfo.FileName = "cmd.exe";
             p.StartInfo.UseShellExecute = false;    //是否使用操作系统shell启动
@@ -112,6 +117,15 @@ namespace Setup
                 if (MessageBox.Show("Lemon App 需要安装.Net Core框架！", "Lemon App安装程序", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
                     Process.Start("https://dotnet.microsoft.com/download/dotnet-core/current/runtime");
             }
+        }
+        private void closeBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var close = Resources["Finish"] as Storyboard;
+            close.Completed += async delegate {
+                await Task.Delay(100);
+                Environment.Exit(0);
+            };
+            close.Begin();
         }
         public static string XtoYGetTo(string all, string r, string l, int t)
         {
