@@ -55,7 +55,7 @@ namespace Setup
             RegistryKey hkSoftWare = hklm.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\LemonApp");
             hkSoftWare.SetValue("DisplayIcon", xt + @"\LemonApp.exe", RegistryValueKind.String);
             hkSoftWare.SetValue("DisplayName", "Lemon App", RegistryValueKind.String);
-            hkSoftWare.SetValue("DisplayVersion", "1.1.3.2", RegistryValueKind.String);
+            hkSoftWare.SetValue("DisplayVersion", "1.1.6.9", RegistryValueKind.String);
             hkSoftWare.SetValue("InstallLocation", xt, RegistryValueKind.String);
             hkSoftWare.SetValue("UninstallString", xt + @"\uninstall.exe", RegistryValueKind.String);
             hkSoftWare.SetValue("Publisher", "Twilight./Lemon", RegistryValueKind.String);
