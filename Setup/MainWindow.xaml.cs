@@ -19,7 +19,7 @@ namespace Setup
     {
         static string AppName = "Lemon App";
         static string AppFileName = "LemonApp";
-        static string BuildVersion = "1.1.7.5";
+        static string BuildVersion = "1.1.7.7";
         static string Publisher = "Twilight./Lemon";
         public MainWindow()
         {
