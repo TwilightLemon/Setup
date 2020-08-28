@@ -17,28 +17,37 @@ namespace Setup
     /// </summary>
     public partial class MainWindow : Window
     {
+        static string AppName = "Lemon App";
+        static string AppFileName = "LemonApp";
+        static string BuildVersion = "1.1.7.5";
+        static string Publisher = "Twilight./Lemon";
         public MainWindow()
         {
             InitializeComponent();
             Process[] processList = Process.GetProcesses();
             foreach (Process process in processList)
             {
-                if (process.ProcessName == "LemonApp")
+                if (process.ProcessName == AppFileName)
                     process.Kill();
             }
-            this.MouseLeftButtonDown += delegate (object sender, MouseButtonEventArgs e) {
+            MouseLeftButtonDown += (sender,e)=>{
                 if (e.LeftButton == MouseButtonState.Pressed)
-                    this.DragMove();
+                    DragMove();
             };
             (Resources["Start"] as Storyboard).Completed += delegate {
                 Thread v = new Thread(Setup);
                 v.Start(new {path=path.Text,istb= checkBox.IsChecked});
             };
+            Title = AppName + "安装程序";
+            Title_Name.Text = AppName;
         }
         public void Setup(object xxt) {
+            //准备参数
             dynamic a = xxt;
             string xt = a.path;
             bool istb = a.istb;
+
+            //释放数据文件
             if (!Directory.Exists(xt))
                 Directory.CreateDirectory(xt);
             ZipHandler handler = ZipHandler.GetInstance();
@@ -47,20 +56,28 @@ namespace Setup
             fss.Write(datas, 0, datas.Length);
             fss.Flush();
             fss.Close();
-            handler.UnpackAll(xt+"\\Data.zip", xt, (num) => { Dispatcher.Invoke(() => { pro.Value = num; }); });
-            if(istb)ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "Lemon App", xt + @"\LemonApp.exe", null, xt + @"\LemonApp.exe");
-            ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Lemon App\", "Lemon App", xt + @"\LemonApp.exe", null, xt + @"\LemonApp.exe");
-            ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Lemon App\", "卸载", xt + @"\uninstall.exe", null, xt + @"\uninstall.exe");
+
+            //解压缩包
+            handler.UnpackAll(xt+"\\Data.zip", xt, (num) => { Dispatcher.Invoke(() => { pro.Value = num-1; }); });
+           
+            //创建桌面快捷方式
+            if(istb)ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), AppName, xt + @"\"+AppFileName+".exe", null, xt + @"\"+AppFileName+".exe");
+            //创建开始菜单快捷方式
+            ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\"+AppName+@"\", AppName, xt + @"\" + AppFileName + ".exe", null, xt + @"\" + AppFileName + ".exe");
+            //创建开始菜单卸载 快捷方式
+            ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\"+AppName+@"\", "卸载"+AppName, xt + @"\uninstall.exe", null, xt + @"\uninstall.exe");
+         
             RegistryKey hklm = Registry.LocalMachine;
-            RegistryKey hkSoftWare = hklm.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\LemonApp");
-            hkSoftWare.SetValue("DisplayIcon", xt + @"\LemonApp.exe", RegistryValueKind.String);
-            hkSoftWare.SetValue("DisplayName", "Lemon App", RegistryValueKind.String);
-            hkSoftWare.SetValue("DisplayVersion", "1.1.6.9", RegistryValueKind.String);
+            RegistryKey hkSoftWare = hklm.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\"+AppFileName);
+            hkSoftWare.SetValue("DisplayIcon", xt + @"\"+AppFileName+".exe", RegistryValueKind.String);
+            hkSoftWare.SetValue("DisplayName", AppName, RegistryValueKind.String);
+            hkSoftWare.SetValue("DisplayVersion", BuildVersion, RegistryValueKind.String);
             hkSoftWare.SetValue("InstallLocation", xt, RegistryValueKind.String);
             hkSoftWare.SetValue("UninstallString", xt + @"\uninstall.exe", RegistryValueKind.String);
-            hkSoftWare.SetValue("Publisher", "Twilight./Lemon", RegistryValueKind.String);
+            hkSoftWare.SetValue("Publisher", Publisher, RegistryValueKind.String);
             hklm.Close();
             hkSoftWare.Close();
+            Dispatcher.Invoke(() => { pro.Value =100; });
         }
         private void ChooseSetupPath_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -77,7 +94,7 @@ namespace Setup
 
         private void FinishBtn_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var ps = path.Text + "\\LemonApp.exe";
+            var ps = path.Text + "\\"+AppFileName+".exe";
             Process.Start(ps);
             var close = Resources["Finish"] as Storyboard;
             close.Completed += async delegate {
@@ -109,12 +126,12 @@ namespace Setup
             {
                 Version s = new Version(stre);
                 if (s < v){
-                    if (MessageBox.Show("Lemon App 需要安装.Net Core框架！", "Lemon App安装程序", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
+                    if (MessageBox.Show(AppName+" 需要安装.Net Core框架！", AppName+"安装程序", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
                         Process.Start("https://dotnet.microsoft.com/download/dotnet-core/current/runtime");
                 }
             }
             catch {
-                if (MessageBox.Show("Lemon App 需要安装.Net Core框架！", "Lemon App安装程序", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
+                if (MessageBox.Show(AppName+" 需要安装.Net Core框架！", AppName+"安装程序", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
                     Process.Start("https://dotnet.microsoft.com/download/dotnet-core/current/runtime");
             }
         }

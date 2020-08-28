@@ -40,21 +40,5 @@ namespace Setup
             shortcut.IconLocation = string.IsNullOrWhiteSpace(iconLocation) ? targetPath : iconLocation;
             shortcut.Save();
         }
-
-        /// <summary>
-        /// 创建桌面快捷方式
-        /// </summary>
-        /// <param name="shortcutName">快捷方式名称</param>
-        /// <param name="targetPath">目标路径</param>
-        /// <param name="description">描述</param>
-        /// <param name="iconLocation">图标路径，格式为"可执行文件或DLL路径, 图标编号"</param>
-        /// <remarks></remarks>
-        public static void CreateShortcutOnDesktop(string shortcutName, string targetPath,
-            string description = null, string iconLocation = null)
-        {
-            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);//获取桌面文件夹路径
-            CreateShortcut(desktop, shortcutName, targetPath, description, iconLocation);
-        }
-
     }
 }
