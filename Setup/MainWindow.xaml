@@ -11,6 +11,7 @@
     </WindowChrome.WindowChrome>
     <Window.Resources>
         <!--#region 控件模板-->
+        <local:ValueToProcessConverter x:Key="ValueToProcessConverter"/>
         <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -136,7 +137,7 @@
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
             </ObjectAnimationUsingKeyFrames>
             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="wrapPanel">
-                <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0,100,0,0">
+                <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0,95,0,0">
                     <EasingThicknessKeyFrame.EasingFunction>
                         <CubicEase EasingMode="EaseOut"/>
                     </EasingThicknessKeyFrame.EasingFunction>
@@ -145,23 +146,16 @@
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="pro">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
             </DoubleAnimationUsingKeyFrames>
-            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="pro">
-                <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0,150,0,0">
-                    <EasingThicknessKeyFrame.EasingFunction>
-                        <CubicEase EasingMode="EaseOut"/>
-                    </EasingThicknessKeyFrame.EasingFunction>
-                </EasingThicknessKeyFrame>
-            </ThicknessAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="doingText">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="OK">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="pro">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
-            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="pro">
-                <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0,170,0,0"/>
-            </ThicknessAnimationUsingKeyFrames>
             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="wrapPanel">
-                <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0,80,0,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="0,70,0,0"/>
             </ThicknessAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="closeBtn">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
@@ -175,6 +169,12 @@
             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="closeBtn">
                 <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="doingText">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="doingText">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
             </ObjectAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="Finish">
@@ -245,7 +245,7 @@
         </Border.Background>
         <Grid x:Name="grid">
             <Grid x:Name="ChoosePath" Visibility="Collapsed" Opacity="0">
-                <TextBox x:Name="path" Text="C:\Program Files\Lemon App" Margin="55,10" Style="{DynamicResource TextBoxStyle}" Height="30" Background="#33000000" Foreground="#FFF7F7F7" IsReadOnly="True"/>
+                <TextBox x:Name="path" Text="D:\Program Files\Lemon App" Margin="55,10" Style="{DynamicResource TextBoxStyle}" Height="30" Background="#33000000" Foreground="#FFF7F7F7" IsReadOnly="True"/>
                 <Border x:Name="ChooseSetupPath" HorizontalAlignment="Right" Width="30" Background="#33000000" MouseDown="ChooseSetupPath_MouseDown" Height="30" VerticalAlignment="Center" CornerRadius="25" Margin="0,0,20,0">
                     <Path Data="M832 874.6496H192a105.3696 105.3696 0 0 1-106.6496-103.68V253.0304A105.3696 105.3696 0 0 1 192 149.3504h196.2496c12.8 0.0512 24.832 5.8368 32.8704 15.7696l110.9504 135.68h298.6496A105.3696 105.3696 0 0 1 938.6496 404.48v366.4896a105.3696 105.3696 0 0 1-106.6496 103.68zM170.6496 587.1104v183.8592a19.6096 19.6096 0 0 0 21.3504 18.3808h640a19.6096 19.6096 0 0 0 21.3504-18.3808V404.48a19.6096 19.6096 0 0 0-21.3504-18.3296H512a42.6496 42.6496 0 0 1-32.8704-15.8208l-110.8992-135.68H192a19.6096 19.6096 0 0 0-21.3504 18.3808v334.08z" Stretch="Uniform" Fill="White" Width="15"/>
                 </Border>
@@ -255,11 +255,19 @@
                 <CheckBox x:Name="checkBox" Content="创建桌面快捷方式" VerticalAlignment="Top" HorizontalAlignment="Center" Style="{DynamicResource CheckBoxStyle}" Foreground="White" Margin="0,165,0,0" IsChecked="True"/>
             </Grid>
             <Grid x:Name="MainPage" Margin="0">
+                <ProgressBar x:Name="pro" BorderThickness="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" ValueChanged="pro_ValueChanged" Margin="-2" Opacity="0">
+                    <ProgressBar.Template>
+                        <ControlTemplate TargetType="{x:Type ProgressBar}">
+                            <Border Background="{TemplateBinding Value, ConverterParameter=200, Converter={StaticResource ValueToProcessConverter}}"/>
+                        </ControlTemplate>
+                    </ProgressBar.Template>
+                </ProgressBar>
+               
                 <Border x:Name="finishedBtn" Height="50" VerticalAlignment="Bottom" CornerRadius="25" Width="50" Margin="105,0,105,80" Background="#33000000" HorizontalAlignment="Center" Opacity="0" MouseDown="FinishBtn_MouseDown">
                     <Path HorizontalAlignment="Center" Data="M935.030689,212.627678C906.370952,183.965895,859.906711,183.965895,831.250044,212.627678L381.527436,662.34824 191.258998,472.079802C162.599261,443.425182 116.13502,443.425182 87.475284,472.079802 58.818617,500.741585 58.818617,547.20378 87.475284,575.865563L329.635579,818.021765C358.292246,846.676385,404.75751,846.676385,433.416224,818.021765L935.029666,316.40423C963.689403,287.744493,963.689403,241.282299,935.030689,212.627678z" Fill="#FFF7F7F7" Margin="0" VerticalAlignment="Center" Stretch="Uniform" Height="13"/>
                 </Border>
                 <TextBlock x:Name="finishedText" TextWrapping="Wrap" Text="安装完成" Foreground="#FFF7F7F7" Margin="100,0,100,40" VerticalAlignment="Bottom" HorizontalAlignment="Center" Opacity="0"/>
-                <WrapPanel x:Name="wrapPanel" Margin="0,80,0,0" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <WrapPanel x:Name="wrapPanel" Margin="0,70,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="44">
                     <Border x:Name="icon" Width="25" Height="25" VerticalAlignment="Top">
                         <Border.Background>
                             <VisualBrush>
@@ -285,13 +293,17 @@
                             </VisualBrush>
                         </Border.Background>
                     </Border>
-                    <TextBlock x:Name="Title_Name" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="WhiteSmoke" HorizontalAlignment="Center" FontSize="24" Margin="5,-2,5,0"><Run Text="Lemon App"/></TextBlock>
+                    <TextBlock x:Name="Title_Name" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="WhiteSmoke" HorizontalAlignment="Center" FontSize="24" Margin="5,-2,5,0">
+                        <Run x:Name="TitleRun" Text="Lemon App "/>
+                        <LineBreak/>
+                        <Run x:Name="signe" Text="Powered by .NET5" FontSize="12" Foreground="#99F5F5F5"/>
+                    </TextBlock>
                 </WrapPanel>
                 <Border x:Name="border" Height="50" VerticalAlignment="Bottom" CornerRadius="25" Width="50" Margin="0,0,0,80" Background="#33000000" HorizontalAlignment="Center">
                     <Path x:Name="path1" HorizontalAlignment="Center" Data="M294.4,908.8L684.8,512 294.4,115.2C268.8,89.6 268.8,44.8 294.4,19.2 320,-6.4 364.8,-6.4 390.4,19.2L832,460.8C844.8,473.6 851.2,492.8 851.2,512 851.2,531.2 844.8,544 832,563.2L390.4,1004.8C364.8,1030.4 320,1030.4 294.4,1004.8 262.4,979.2 262.4,934.4 294.4,908.8z" Fill="#FFF7F7F7" Stretch="Uniform" Height="15" Margin="2,0,0,0" VerticalAlignment="Center" Width="10"/>
                 </Border>
                 <TextBlock x:Name="SelfBtn" TextWrapping="Wrap" Text="自定义安装" Foreground="#FFF7F7F7" Margin="0,0,0,40" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="#00000000"/>
-                <ProgressBar x:Name="pro" Height="10" VerticalAlignment="Top" Margin="0,170,0,0" HorizontalAlignment="Center" Width="200" BorderThickness="0" Background="#7FE6E6E6" BorderBrush="{x:Null}" Foreground="#FF027DCB" Opacity="0" ValueChanged="pro_ValueChanged"/>
+                <TextBlock x:Name="doingText" HorizontalAlignment="Center" TextWrapping="Wrap" Text="installing..." VerticalAlignment="Top" Margin="0,160,0,0" FontSize="14" Foreground="#CCFFFFFF" Visibility="Collapsed"/>
             </Grid>
             <Border x:Name="closeBtn" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" Background="#FF2B2B2B" Margin="0,20,20,0" MouseDown="closeBtn_MouseDown" CornerRadius="30">
                 <Path Data="M887.132284,833.893244L560.497039,507.257999 880.805182,186.943716C892.890428,174.856423 892.890428,155.273412 880.805182,143.187143 868.718912,131.101897 849.120552,131.101897 837.048609,143.187143L516.740466,463.500403 190.101127,136.860041C178.075233,124.834147 158.5659,124.834147 146.540005,136.860041 134.499784,148.885935 134.499784,168.408571 146.540005,180.435489L473.173204,507.068688 136.905578,843.339384C124.826472,855.425654 124.826472,875.007641 136.905578,887.09391 148.991848,899.181203 168.583045,899.181203 180.669314,887.09391L516.930801,550.827307 843.573209,877.469715C855.599103,889.495609 875.092063,889.495609 887.132284,877.469715 899.159202,865.442798 899.159202,845.919139 887.132284,833.893244z" Stretch="Uniform" Fill="#FFE8E8E8" Width="10" Height="10"/>

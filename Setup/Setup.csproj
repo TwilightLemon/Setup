@@ -94,6 +94,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ArcProgressBar.cs" />
     <Compile Include="MainWindow.xaml.cs" />
     <Compile Include="Hq.cs" />
     <Page Include="Simple Styles.xaml">

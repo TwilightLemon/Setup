@@ -19,8 +19,9 @@ namespace Setup
     {
         static string AppName = "Lemon App";
         static string AppFileName = "LemonApp";
-        static string BuildVersion = "1.1.7.7";
+        static string BuildVersion = "1.1.7.8";
         static string Publisher = "Twilight./Lemon";
+        static string SignText = "Powered by .NET5";
         public MainWindow()
         {
             InitializeComponent();
@@ -39,13 +40,30 @@ namespace Setup
                 v.Start(new {path=path.Text,istb= checkBox.IsChecked});
             };
             Title = AppName + "安装程序";
-            Title_Name.Text = AppName;
+            TitleRun.Text = AppName;
+            signe.Text = SignText;
+            doingText.Text = "";
         }
-        public void Setup(object xxt) {
+        private void SetupDoing(string text) {
+            Dispatcher.Invoke(() => {
+                doingText.Text = text;
+            });
+        }
+        private void Setup(object xxt) {
             //准备参数
             dynamic a = xxt;
             string xt = a.path;
             bool istb = a.istb;
+
+            //删除上次安装目录
+            try
+            {
+                if (deleteLast) {
+                    SetupDoing("Deleting old files...");
+                    new DirectoryInfo(lastpath).Delete(true);
+                }
+            }
+            catch (Exception e) { MessageBox.Show(e.Message); }
 
             //释放数据文件
             if (!Directory.Exists(xt))
@@ -58,8 +76,14 @@ namespace Setup
             fss.Close();
 
             //解压缩包
-            handler.UnpackAll(xt+"\\Data.zip", xt, (num) => { Dispatcher.Invoke(() => { pro.Value = num-1; }); });
-           
+            handler.UnpackAll(xt+"\\Data.zip", xt,
+                (num) => { Dispatcher.Invoke(() => {
+                    pro.Value = num-1;
+                    doingText.Text = "installing... " +num+ "%";
+                }); 
+            });
+
+            SetupDoing("Creating Shortcuts...");
             //创建桌面快捷方式
             if(istb)ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), AppName, xt + @"\"+AppFileName+".exe", null, xt + @"\"+AppFileName+".exe");
             //创建开始菜单快捷方式
@@ -95,45 +119,42 @@ namespace Setup
         private void FinishBtn_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var ps = path.Text + "\\"+AppFileName+".exe";
-            Process.Start(ps);
             var close = Resources["Finish"] as Storyboard;
             close.Completed += async delegate {
                 await Task.Delay(100);
+                Process.Start(ps);
                 Environment.Exit(0);
             };
             close.Begin();
         }
 
-        private async void window_Loaded(object sender, RoutedEventArgs e)
+        private bool deleteLast = false;
+        private string lastpath = null;
+        private void window_Loaded(object sender, RoutedEventArgs e)
         {
-            string str = "dotnet --version";
-            Process p = new Process();
-            p.StartInfo.FileName = "cmd.exe";
-            p.StartInfo.UseShellExecute = false;    //是否使用操作系统shell启动
-            p.StartInfo.RedirectStandardInput = true;//接受来自调用程序的输入信息
-            p.StartInfo.RedirectStandardOutput = true;//由调用程序获取输出信息
-            p.StartInfo.RedirectStandardError = true;//重定向标准错误输出
-            p.StartInfo.CreateNoWindow = true;//不显示程序窗口
-            p.Start();//启动程序
-            await p.StandardInput.WriteLineAsync(str + "&exit");
-            p.StandardInput.AutoFlush = true;
-            string output =await p.StandardOutput.ReadToEndAsync();
-            p.WaitForExit();
-            p.Close();
-            string stre = XtoYGetTo(output+"}", "&exit", "}", 0);
-            Version v = new Version(3, 1, 101);
             try
             {
-                Version s = new Version(stre);
-                if (s < v){
-                    if (MessageBox.Show(AppName+" 需要安装.Net Core框架！", AppName+"安装程序", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
-                        Process.Start("https://dotnet.microsoft.com/download/dotnet-core/current/runtime");
+                //---1178--安装目录迁移----------------------------------
+                RegistryKey hklm = Registry.LocalMachine;
+                RegistryKey hkSoftWare = hklm.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + AppFileName);
+                string LastPath = hkSoftWare.GetValue("InstallLocation").ToString();
+                hklm.Close();
+                hkSoftWare.Close();
+                if (LastPath.Contains("C:\\Program Files"))
+                {
+                    //上一次的安装目录在C:\
+                    path.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), AppName);
+                    deleteLast = true;
+                    lastpath = LastPath;
+                    MessageBox.Show(deleteLast + "    " + lastpath);
+                }
+                else if (string.IsNullOrEmpty(LastPath))
+                {
+                    //读取上一次安装目录
+                    path.Text = LastPath;
                 }
             }
-            catch {
-                if (MessageBox.Show(AppName+" 需要安装.Net Core框架！", AppName+"安装程序", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
-                    Process.Start("https://dotnet.microsoft.com/download/dotnet-core/current/runtime");
-            }
+            catch { }
         }
         private void closeBtn_MouseDown(object sender, MouseButtonEventArgs e)
         {
