@@ -107,7 +107,11 @@ namespace Setup
         {
             var fbd = new System.Windows.Forms.FolderBrowserDialog();
             if (fbd.ShowDialog() != System.Windows.Forms.DialogResult.Cancel)
+            {
                 path.Text = fbd.SelectedPath;
+                if (!path.Text.EndsWith(AppName))
+                    path.Text = Path.Combine(path.Text,AppName);
+            }
         }
 
         private void pro_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -148,7 +152,7 @@ namespace Setup
                     lastpath = LastPath;
                     MessageBox.Show(deleteLast + "    " + lastpath);
                 }
-                else if (string.IsNullOrEmpty(LastPath))
+                else if (!string.IsNullOrEmpty(LastPath))
                 {
                     //读取上一次安装目录
                     path.Text = LastPath;
