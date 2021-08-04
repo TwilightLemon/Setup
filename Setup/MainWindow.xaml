@@ -245,7 +245,7 @@
         </Border.Background>
         <Grid x:Name="grid">
             <Grid x:Name="ChoosePath" Visibility="Collapsed" Opacity="0">
-                <TextBox x:Name="path" Text="D:\Program Files\Lemon App" Margin="55,10" Style="{DynamicResource TextBoxStyle}" Height="30" Background="#33000000" Foreground="#FFF7F7F7" IsReadOnly="True"/>
+                <TextBox x:Name="path" Text="C:\Program Files\Lemon App" Margin="55,10" Style="{DynamicResource TextBoxStyle}" Height="30" Background="#33000000" Foreground="#FFF7F7F7" IsReadOnly="True"/>
                 <Border x:Name="ChooseSetupPath" HorizontalAlignment="Right" Width="30" Background="#33000000" MouseDown="ChooseSetupPath_MouseDown" Height="30" VerticalAlignment="Center" CornerRadius="25" Margin="0,0,20,0">
                     <Path Data="M832 874.6496H192a105.3696 105.3696 0 0 1-106.6496-103.68V253.0304A105.3696 105.3696 0 0 1 192 149.3504h196.2496c12.8 0.0512 24.832 5.8368 32.8704 15.7696l110.9504 135.68h298.6496A105.3696 105.3696 0 0 1 938.6496 404.48v366.4896a105.3696 105.3696 0 0 1-106.6496 103.68zM170.6496 587.1104v183.8592a19.6096 19.6096 0 0 0 21.3504 18.3808h640a19.6096 19.6096 0 0 0 21.3504-18.3808V404.48a19.6096 19.6096 0 0 0-21.3504-18.3296H512a42.6496 42.6496 0 0 1-32.8704-15.8208l-110.8992-135.68H192a19.6096 19.6096 0 0 0-21.3504 18.3808v334.08z" Stretch="Uniform" Fill="White" Width="15"/>
                 </Border>

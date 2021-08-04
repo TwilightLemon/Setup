@@ -56,7 +56,7 @@ namespace uninstall
                     catch { }
                     MessageBox.Show("卸载成功！o(*￣▽￣*)ブ", title);
                 }
-                else MessageBox.Show("感谢您！让我为您继续服务吧！o(*￣▽￣*)ブ", "开心");
+                else MessageBox.Show("感谢您！让我为您继续工作吧！o(*￣▽￣*)ブ", "开心");
             }
             catch { MessageBox.Show("卸载失败惹！o(*￣▽￣*)ブ",title); }
         }

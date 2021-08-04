@@ -19,7 +19,7 @@ namespace Setup
     {
         static string AppName = "Lemon App";
         static string AppFileName = "LemonApp";
-        static string BuildVersion = "1.1.7.8";
+        static string BuildVersion = "1.2.3.0";
         static string Publisher = "Twilight./Lemon";
         static string SignText = "Powered by .NET5";
         public MainWindow()
@@ -54,16 +54,6 @@ namespace Setup
             dynamic a = xxt;
             string xt = a.path;
             bool istb = a.istb;
-
-            //删除上次安装目录
-            try
-            {
-                if (deleteLast) {
-                    SetupDoing("Deleting old files...");
-                    new DirectoryInfo(lastpath).Delete(true);
-                }
-            }
-            catch (Exception e) { MessageBox.Show(e.Message); }
 
             //释放数据文件
             if (!Directory.Exists(xt))
@@ -132,31 +122,16 @@ namespace Setup
             close.Begin();
         }
 
-        private bool deleteLast = false;
-        private string lastpath = null;
         private void window_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
-                //---1178--安装目录迁移----------------------------------
                 RegistryKey hklm = Registry.LocalMachine;
                 RegistryKey hkSoftWare = hklm.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + AppFileName);
                 string LastPath = hkSoftWare.GetValue("InstallLocation").ToString();
                 hklm.Close();
                 hkSoftWare.Close();
-                if (LastPath.Contains("C:\\Program Files"))
-                {
-                    //上一次的安装目录在C:\
-                    path.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), AppName);
-                    deleteLast = true;
-                    lastpath = LastPath;
-                    MessageBox.Show(deleteLast + "    " + lastpath);
-                }
-                else if (!string.IsNullOrEmpty(LastPath))
-                {
-                    //读取上一次安装目录
-                    path.Text = LastPath;
-                }
+                path.Text = !string.IsNullOrEmpty(LastPath)?LastPath: "C:\\Program Files\\Lemon App";
             }
             catch { }
         }
