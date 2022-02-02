@@ -40,7 +40,7 @@ namespace uninstall
                         try
                         {
                             //别傻了 不能自己删自己
-                            if (file.Name != "uninstall.exe")
+                            if (file.Name != "Uninstall.exe")
                                 file.Delete();
                         }
                         catch { }

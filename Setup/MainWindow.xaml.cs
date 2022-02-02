@@ -19,9 +19,9 @@ namespace Setup
     {
         static string AppName = "Lemon App";
         static string AppFileName = "LemonApp";
-        static string BuildVersion = "1.2.3.0";
+        static string BuildVersion = "1.2.3.6";
         static string Publisher = "Twilight./Lemon";
-        static string SignText = "Powered by .NET5";
+        static string SignText = "Powered by .NET6";
         public MainWindow()
         {
             InitializeComponent();
