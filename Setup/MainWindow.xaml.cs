@@ -19,7 +19,7 @@ namespace Setup
     {
         static string AppName = "Lemon App";
         static string AppFileName = "LemonApp";
-        static string BuildVersion = "1.2.3.6";
+        static string BuildVersion = "1.2.4.1";
         static string Publisher = "Twilight./Lemon";
         static string SignText = "Powered by .NET6";
         public MainWindow()
@@ -79,7 +79,7 @@ namespace Setup
             //创建开始菜单快捷方式
             ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\"+AppName+@"\", AppName, xt + @"\" + AppFileName + ".exe", null, xt + @"\" + AppFileName + ".exe");
             //创建开始菜单卸载 快捷方式
-            ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\"+AppName+@"\", "卸载"+AppName, xt + @"\uninstall.exe", null, xt + @"\uninstall.exe");
+            ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\"+AppName+@"\", "卸载"+AppName, xt + @"\Uninstall.exe", null, xt + @"\Uninstall.exe");
          
             RegistryKey hklm = Registry.LocalMachine;
             RegistryKey hkSoftWare = hklm.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\"+AppFileName);
@@ -87,7 +87,7 @@ namespace Setup
             hkSoftWare.SetValue("DisplayName", AppName, RegistryValueKind.String);
             hkSoftWare.SetValue("DisplayVersion", BuildVersion, RegistryValueKind.String);
             hkSoftWare.SetValue("InstallLocation", xt, RegistryValueKind.String);
-            hkSoftWare.SetValue("UninstallString", xt + @"\uninstall.exe", RegistryValueKind.String);
+            hkSoftWare.SetValue("UninstallString", xt + @"\Uninstall.exe", RegistryValueKind.String);
             hkSoftWare.SetValue("Publisher", Publisher, RegistryValueKind.String);
             hklm.Close();
             hkSoftWare.Close();
