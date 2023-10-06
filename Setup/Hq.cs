@@ -1,10 +1,5 @@
 ﻿using IWshRuntimeLibrary;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Setup
 {
@@ -25,10 +20,8 @@ namespace Setup
         public static void CreateShortcut(string directory, string shortcutName, string targetPath,
             string description = null, string iconLocation = null)
         {
-            if (!System.IO.Directory.Exists(directory))
-            {
-                System.IO.Directory.CreateDirectory(directory);
-            }
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
 
             string shortcutPath = Path.Combine(directory, string.Format("{0}.lnk", shortcutName));
             WshShell shell = new WshShell();

@@ -1,9 +1,5 @@
 ﻿using Microsoft.Win32;
-using System;
 using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace uninstall
 {
@@ -12,6 +8,7 @@ namespace uninstall
         static string AppName = "Lemon App";
         static string AppFileName = "LemonApp";
         static string title = AppName + "卸载程序";
+
         static async Task Main(string[] args)
         {
             try

@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using Microsoft.Win32;
-using System.Windows.Media;
 using System.Threading.Tasks;
 
 namespace Setup
@@ -19,9 +18,10 @@ namespace Setup
     {
         static string AppName = "Lemon App";
         static string AppFileName = "LemonApp";
-        static string BuildVersion = "1.2.4.1";
+        static string BuildVersion = "1.2.7.0";
         static string Publisher = "Twilight./Lemon";
         static string SignText = "Powered by .NET6";
+
         public MainWindow()
         {
             InitializeComponent();
@@ -39,6 +39,7 @@ namespace Setup
                 Thread v = new Thread(Setup);
                 v.Start(new {path=path.Text,istb= checkBox.IsChecked});
             };
+
             Title = AppName + "安装程序";
             TitleRun.Text = AppName;
             signe.Text = SignText;
@@ -77,9 +78,9 @@ namespace Setup
             //创建桌面快捷方式
             if(istb)ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), AppName, xt + @"\"+AppFileName+".exe", null, xt + @"\"+AppFileName+".exe");
             //创建开始菜单快捷方式
-            ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\"+AppName+@"\", AppName, xt + @"\" + AppFileName + ".exe", null, xt + @"\" + AppFileName + ".exe");
+            ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu)+ @"\Programs" + @"\"+AppName+@"\", AppName, xt + @"\" + AppFileName + ".exe", null, xt + @"\" + AppFileName + ".exe");
             //创建开始菜单卸载 快捷方式
-            ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\"+AppName+@"\", "卸载"+AppName, xt + @"\Uninstall.exe", null, xt + @"\Uninstall.exe");
+            ShortcutCreator.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Programs" + @"\"+AppName+@"\", "卸载"+AppName, xt + @"\Uninstall.exe", null, xt + @"\Uninstall.exe");
          
             RegistryKey hklm = Registry.LocalMachine;
             RegistryKey hkSoftWare = hklm.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\"+AppFileName);
@@ -143,26 +144,6 @@ namespace Setup
                 Environment.Exit(0);
             };
             close.Begin();
-        }
-        public static string XtoYGetTo(string all, string r, string l, int t)
-        {
-
-            int A = all.IndexOf(r, t);
-            int B = all.IndexOf(l, A + 1);
-            if (A < 0 || B < 0)
-            {
-                return null;
-            }
-            else
-            {
-                A = A + r.Length;
-                B = B - A;
-                if (A < 0 || B < 0)
-                {
-                    return null;
-                }
-                return all.Substring(A, B);
-            }
         }
     }
 }
