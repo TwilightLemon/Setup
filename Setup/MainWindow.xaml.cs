@@ -19,7 +19,7 @@ namespace Setup
         #region 安装信息
         static string AppName = "Lemon App";
         static string AppFileName = "LemonApp";
-        static string BuildVersion = "1.2.7.4";
+        static string BuildVersion = "1.2.8.4";
         static string Publisher = "Twilight./Lemon";
         static string SignText = "Powered by .NET6";
         static string DefaultPath = "C:\\Program Files\\"+AppFileName;
@@ -67,7 +67,8 @@ namespace Setup
                 //查找已经安装的信息
                 RegistryKey hklm = Registry.LocalMachine;
                 RegistryKey hkSoftWare = hklm.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + AppFileName);
-                LastPath = hkSoftWare.GetValue("InstallLocation").ToString();
+                if(hkSoftWare.ValueCount>2)
+                    LastPath = hkSoftWare.GetValue("InstallLocation").ToString();
                 hklm.Close();
                 hkSoftWare.Close();
             }
