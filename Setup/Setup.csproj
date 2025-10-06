@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-    <Version>1.2.8.4</Version>
-    <Authors>Twilight./Lemon</Authors>
+    <Version>1.0.2</Version>
+    <Authors>TwilightLemon</Authors>
     <Copyright>Lemon App安装程序</Copyright>
   </PropertyGroup>
 

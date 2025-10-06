@@ -19,9 +19,9 @@ namespace Setup
         #region 安装信息
         static string AppName = "Lemon App";
         static string AppFileName = "LemonApp";
-        static string BuildVersion = "1.2.8.4";
-        static string Publisher = "Twilight./Lemon";
-        static string SignText = "Powered by .NET6";
+        static string BuildVersion = "1.0.2";
+        static string Publisher = "TwilightLemon";
+        static string SignText = "Powered by .NET8";
         static string DefaultPath = "C:\\Program Files\\"+AppFileName;
         #endregion
 
